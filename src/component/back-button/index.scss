@@ -1,0 +1,5 @@
+@use '../../style' as s;
+
+.back-button {
+  @include s.click; //підтягуємо CSS властивості з /style/click.scss
+}
