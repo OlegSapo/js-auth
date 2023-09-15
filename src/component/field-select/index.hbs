@@ -1,0 +1,17 @@
+<div class="field field--select">
+  <span class="field__label">{{label}}</span>
+
+  <div class="field__container">
+    <button onclick="fieldSelect.toggle(this)" type="button" class="field__select"> {{!-- onclick - функція click на на випадаючому списку --}}
+      <span class="field__value field__value--placeholder">{{placeholder}}</span>
+      <span class="field__icon"></span>
+    </button>
+    <ul class="field__option-list"> {{!-- active --}}
+      {{#each list}}
+        <li onclick="fieldSelect.change(this);
+        {{../action}}('{{../name}}', {{value}});
+        " class="field__option">{{text}}</li>  {{!-- onclick - функція click на елемент <li> --}}
+      {{/each}}
+    </ul>
+  </div>
+</div>

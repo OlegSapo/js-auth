@@ -15,11 +15,11 @@
       height: 20px;
       width: 20px;
 
-      background-image: url('/svg/eye-close.svg');
+      background-image: url('/svg/eye-open.svg');
       background-size: cover;
 
       &[show] { // атрибут show для зміни кнопки-іконки для відображення пароля
-        background-image: url('/svg/eye-open.svg');
+        background-image: url('/svg/eye-close.svg');
       }
 
       position: absolute;
