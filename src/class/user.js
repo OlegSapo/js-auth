@@ -34,6 +34,8 @@ class User {
   static create(data) {
     //метод класа User для створення нового користувача
     const user = new User(data)
+    console.log(user)
+
     this.#list.push(user) //та додаємо його в масив #list
     console.log(this.#list)
   }
