@@ -20,12 +20,13 @@ class User {
     role = Number(role) //робимо з ролі число
 
     if (isNaN(role)) {
-      role = this.USER_ROLE.USER //якщо роли не визначено, то за-замовчуванням роль буде "юзер"
+      //якщо ролі не визначено, то за-замовчуванням роль буде user
+      role = this.USER_ROLE.USER
     }
 
     role = Object.values(this.USER_ROLE).includes(role)
       ? role // прсвоюємо ролі її значення
-      : this.USER_ROLE.USER //інакше ролі присвоюємо "юзер"
+      : this.USER_ROLE.USER //інакше ролі присвоюємо user
 
     return role
   }
@@ -34,6 +35,15 @@ class User {
     //метод класа User для створення нового користувача
     const user = new User(data)
     this.#list.push(user) //та додаємо його в масив #list
+    console.log(this.#list)
+  }
+
+  static getByEmail(email) {
+    // метод, що повертає коритсувача по його email або null, якщо такого email немає
+    return (
+      this.#list.find((user) => user.email === email) ||
+      null
+    )
   }
 }
 

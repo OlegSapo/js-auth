@@ -18,24 +18,29 @@
             </div>
 
             <div class="form__item">
-                {{>field-password action='signupForm.change' label='Пароль' name='password' type='password' placeholder='Введіть пароль'}} {{!-- підключаємо компонент field для email --}}
+                {{>field-password action='signupForm.change' label='Пароль' name='password' type='password' placeholder='Введіть пароль'}} {{!-- підключаємо компонент field для password --}}
                 <span name="password" class="form__error">Помилка</span>
             </div>
 
             <div class="form__item">
-                {{>field-select action='signupForm.change' label='Роль' name='role' placeholder='Оберіть роль' list=data.role}} {{!-- підключаємо компонент field для email --}}
+                {{>field-password action='signupForm.change' label='Пароль ще раз' name='passwordAgain' type='password' placeholder='Введіть пароль'}} {{!-- підключаємо компонент field для password --}}
+                <span name="passwordAgain" class="form__error">Помилка</span>
+            </div>
+
+            <div class="form__item">
+                {{>field-select action='signupForm.change' label='Роль' name='role' placeholder='Оберіть роль' list=data.role}} {{!-- підключаємо компонент field для role --}}
                 <span name="role" class="form__error">Помилка</span>
             </div>
 
             <div class="form__item">
-                {{>field-checkbox action='signupForm.change' label='Ви погоджуєтеся з правилами сервіса' name='isConfirm'}} {{!-- підключаємо компонент field для email --}}
+                {{>field-checkbox action='signupForm.change' label='Ви погоджуєтеся з правилами сервіса' name='isConfirm'}} {{!-- підключаємо компонент field для погодження з правилами --}}
                 <span name="isConfirm" class="form__error">Помилка</span>
             </div>
         </div>
 
-        <button onclick="signupForm.submit()" class="button" type="button">Зареєструватися</button>
+        <button onclick="signupForm.submit()" class="button button--disabled" type="button">Зареєструватися</button>
 
-        <span class="alert alert--error">Внимание, ошибка!</span>
+        <span class="alert alert--disabled">Внимание, ошибка!</span>
     </form>
 </div>
 
