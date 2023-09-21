@@ -10,7 +10,7 @@ class User {
 
   constructor({ email, password, role }) {
     //конструктор  для створення коритсувача
-    this.email = email
+    this.email = String(email).toLowerCase() //перетворюємо email на малі літери
     this.password = password
     this.role = User.#convertRole(role) //роль конвертуємо в значення(число)
   }
@@ -43,10 +43,12 @@ class User {
   static getByEmail(email) {
     // метод, що повертає коритсувача по його email або null, якщо такого email немає
     return (
-      this.#list.find((user) => user.email === email) ||
-      null
+      this.#list.find(
+        (user) =>
+          user.email === String(email).toLowerCase(), //перетворюємо пошту на String() та малі літери ( toLowerCase() )
+      ) || null
     )
   }
 }
 
-module.exports = { User } //експортуємо classs User
+module.exports = { User } //експортуємо клас User
