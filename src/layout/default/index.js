@@ -1,1 +1,5 @@
-// console.log('layout')
+//імпортуємо функцію loadSession
+import { loadSession } from '../../script/session'
+
+//(до початку всіх контейнерів) завантажуємо в браузер сесію (токен) користувача, що збережено під час його реєстрації
+loadSession()

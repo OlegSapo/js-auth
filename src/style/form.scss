@@ -76,3 +76,13 @@
     border-color: s.color(red) !important; // !important - необхідно, щоб перебити всі інші border-color доки користувач не введе коректні значення
   }
 }
+
+.link {
+  color: s.color(main);
+
+  @include s.click;
+
+  &__prefix {
+    color: s.color(light);
+  }
+}

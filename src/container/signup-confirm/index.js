@@ -1,28 +1,22 @@
+import { Form } from '../../script/form' //підключаємо батьківський клас Form
+
 import {
-  Form,
-  REG_EXP_EMAIL,
-  REG_EXP_PASSWORD,
-} from '../../script/form' //підключаємо батьківський клас Form
+  saveSession, //підключаємо saveSession
+  getTokenSession, //підключаємо getTokenSession
+  getSession, //підключаємо getSession
+} from '../../script/session'
 
-import { saveSession } from '../../script/session'
-
-// клас для роботи з формою підтвердження зміни паролю; посилання на батьківський клас Form (extends Form)
-class RecoveryConfirmForm extends Form {
+// клас для роботи з формою підтвердження пошти; посилання на батьківський клас Form (extends Form)
+class SignupConfirmForm extends Form {
   FIELD_NAME = {
     //для зручності задаємо назви полей вводу
     CODE: 'code',
-    PASSWORD: 'password',
-    PASSWORD_AGAIN: 'passwordAgain',
   }
 
   FIELD_ERROR = {
     //тексти для помилок під час валідації lаних
     IS_EMPTY: 'Введіть значення в поле',
     IS_BIG: 'Дуже довге значення, приберіть зайве',
-    PASSWORD:
-      'Пароль повинен складатися неменше, ніж з 8 символів, включаючи хоча б одну цифру, малу і ВЕЛИКУ літеру',
-    PASSWORD_AGAIN:
-      'Ваш пароль не збігається з вище введеним',
   }
 
   //функція валідації (правільності вводу) значень введених в полі вводу
@@ -34,23 +28,6 @@ class RecoveryConfirmForm extends Form {
 
     if (String(value).length > 20) {
       return this.FIELD_ERROR.IS_BIG
-    }
-
-    //якщо ми працюємо з полем вводу name='password'
-    if (name === this.FIELD_NAME.PASSWORD) {
-      if (!REG_EXP_PASSWORD.test(String(value))) {
-        return this.FIELD_ERROR.PASSWORD
-      }
-    }
-
-    if (name === this.FIELD_NAME.PASSWORD_AGAIN) {
-      //для поля вводу name='passwordAgain' перевіряємо чи недорівнює воно значенню поля вводу password
-      if (
-        String(value) !==
-        this.value[this.FIELD_NAME.PASSWORD]
-      ) {
-        return this.FIELD_ERROR.PASSWORD_AGAIN
-      }
     }
   }
 
@@ -68,7 +45,7 @@ class RecoveryConfirmForm extends Form {
       //якщо аиникла помилка під час відправки даних на сервер
       try {
         //асинхронна функція; res (response) - відповідь
-        const res = await fetch('/recovery-confirm', {
+        const res = await fetch('/signup-confirm', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: this.convertData(),
@@ -99,13 +76,41 @@ class RecoveryConfirmForm extends Form {
       [this.FIELD_NAME.CODE]: Number(
         this.value[this.FIELD_NAME.CODE],
       ),
-      [this.FIELD_NAME.PASSWORD]:
-        this.value[this.FIELD_NAME.PASSWORD],
-      // [this.FIELD_NAME.PASSWORD_AGAIN]:
-      //   this.value[this.FIELD_NAME.PASSWORD_AGAIN],
+      token: getTokenSession(), //відправка токена
     })
   }
 }
 
 //підключаемо клас SignupForm через змінну signupForm з урахуванням, що в нас наслідування (new SignupForm())
-window.recoveryConfirmForm = new RecoveryConfirmForm()
+window.signupConfirmForm = new SignupConfirmForm()
+
+//вхід в акаунт якщо вже є збережена сесія (тобто вхід в акаунт вже виконано)
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    //якщо є сесія
+    if (window.session) {
+      //перевіряємо isConfirm на true
+      if (window.session.user.isConfirm) {
+        location.assign('/') //перехід на головну сторінку
+      }
+    } else {
+      //якщо не має сесії
+      location.assign('/') //перехід на головну сторінку
+    }
+  } catch (error) {}
+
+  document
+    .querySelector('#renew')
+    .addEventListener('click', (event) => {
+      //відміняємо дії браузера за-замовчуванням в разі події 'click
+      event.preventDefault()
+
+      //отримуємо сесію користувача
+      const session = getSession()
+
+      //перехід на потрібну підтвердження пошти та присвоєння renew значення true та оримання значення email користувача
+      location.assign(
+        `/signup-confirm?renew=true&email=${session.user.email}`,
+      )
+    })
+})

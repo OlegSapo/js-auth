@@ -8,11 +8,15 @@ class User {
 
   static #list = [] //список коритсувачів
 
+  static #count = 1 //лічильник зареєстрованих користувачів
+
+  //конструктор  для створення коритсувача
   constructor({ email, password, role }) {
-    //конструктор  для створення коритсувача
+    this.id = User.#count++ //ідентифікатор
     this.email = String(email).toLowerCase() //перетворюємо email на малі літери
-    this.password = password
+    this.password = String(password) //перетворюємо пароль у рядок, оскільки пароль буде літерно-числовим
     this.role = User.#convertRole(role) //роль конвертуємо в значення(число)
+    this.isConfirm = false //чи підтредив користувач пошту
   }
 
   static #convertRole = (role) => {
@@ -38,6 +42,8 @@ class User {
 
     this.#list.push(user) //та додаємо його в масив #list
     console.log(this.#list)
+
+    return user
   }
 
   static getByEmail(email) {

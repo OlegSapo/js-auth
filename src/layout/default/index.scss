@@ -33,8 +33,12 @@ body {
 
 	&--background {
 		// background-image: url('/svg/background+.svg');
+		background-image: url('/svg/truzyb.svg');
+		background-size: 50px;
 		background-repeat: no-repeat;
 		background-position: top right;
+		margin-top: 10px;
+		margin-right: 10px;
 	}
 
 	&__section {
@@ -46,5 +50,11 @@ body {
 	&__title {
 		font-size: 24px;
 		color: s.color(dark);
+	}
+
+	&__subtitle {
+		font-size: 14px;
+		color: s.color(gray);
+		line-height: 1.5em;
 	}
 }

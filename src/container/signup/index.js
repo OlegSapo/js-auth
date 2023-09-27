@@ -1,8 +1,12 @@
+//підключаємо батьківський клас Form
 import {
   Form,
   REG_EXP_EMAIL,
   REG_EXP_PASSWORD,
-} from '../../script/form' //підключаємо батьківський клас Form
+} from '../../script/form'
+
+//підключаємо функцію saveSession для запису сесію в localStorage
+import { saveSession } from '../../script/session'
 
 // клас для роботи з формою реєстрації; посилання на батьківський клас Form (extends Form)
 class SignupForm extends Form {
@@ -102,6 +106,11 @@ class SignupForm extends Form {
 
         if (res.ok) {
           this.setAlert('success', data.message)
+          // alert(data.session.token)
+          saveSession(data.session) //в разі вдалої реєстрації зберігаємо сесію та отримувати token користувача
+
+          //після вдалої реєстрації користувача переходимо на головну сторінку
+          location.assign('/')
         } else {
           this.setAlert('error', data.message)
         }
