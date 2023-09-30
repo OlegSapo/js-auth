@@ -46,8 +46,8 @@ class User {
     return user
   }
 
+  // метод, що повертає коритсувача по його email або null, якщо такого email немає
   static getByEmail(email) {
-    // метод, що повертає коритсувача по його email або null, якщо такого email немає
     return (
       this.#list.find(
         (user) =>
@@ -55,6 +55,17 @@ class User {
       ) || null
     )
   }
+
+  // метод, що повертає коритсувача по його id або null, якщо такого email немає
+  static getById(id) {
+    return (
+      this.#list.find((user) => user.id === Number(id)) ||
+      null
+    )
+  }
+
+  //метод отримання списку зареєстрованих користувачів
+  static getList = () => this.#list
 }
 
 module.exports = { User } //експортуємо клас User

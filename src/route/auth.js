@@ -19,6 +19,18 @@ User.create({
   role: 1,
 })
 
+User.create({
+  email: 'proba@linkedin.com',
+  password: 12345,
+  role: 2,
+})
+
+User.create({
+  email: 'roberto@soli.it',
+  password: 12345,
+  role: 3,
+})
+
 // ====================
 
 // роутер-ГЕТ використовується  для відображення сторінки реєстрації

@@ -61,7 +61,7 @@
     color: s.color(red);
   }
 
-  &--progress {
+  &--loading {
     border-color: s.color(blue);
     color: s.color(blue);
   }
@@ -84,5 +84,20 @@
 
   &__prefix {
     color: s.color(light);
+  }
+}
+
+//анімація для попереднього відображення місця для контенту, що ось-ось завантажиться
+.skeleton { //skeleton - сірі блоки місця під потенційний контент, що завантажується
+  animation: skeleton-animation 1s infinite alternate;
+}
+
+@keyframes skeleton-animation {
+  from {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  to {
+    background-color: rgba(0, 0, 0, 0.15);
   }
 }
